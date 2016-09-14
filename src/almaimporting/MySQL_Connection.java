@@ -7,6 +7,9 @@ public class MySQL_Connection {
     
     private Connection connection = null;
     private   MySQL_Query_Controller queryController = new MySQL_Query_Controller(this.connection);
+    private int records = 2;
+    
+    
     public MySQL_Connection(String connectionString) throws SQLException{
       try {
          Class.forName("com.mysql.jdbc.Driver");
@@ -18,16 +21,17 @@ public class MySQL_Connection {
     }
     
     public void executeQuery(){
-         try { 
-            queryController.readData(2);
+        for(int i = 2; i<=records; i++){ 
+        try { 
+            queryController.readData(i);
          } catch (Exception ex) {
              System.out.println("Error executing query:" + ex.getMessage());
-         }  
+         }
+      }
       close();   
     }
     
-    
-    
+
     private void close() {
       try {
          if (connection != null) {
