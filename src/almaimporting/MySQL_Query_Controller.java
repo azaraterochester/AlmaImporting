@@ -25,21 +25,23 @@ public class MySQL_Query_Controller {
     }
     
     public void readData(int i) throws Exception {
+        
         try {
             statement1 = connection.createStatement();
             String query = "select * "
                             + "from Proficiencies "
-                            + "where id = 2;";
+                            + "where id = "+i+";";
             resultSet = statement1.executeQuery(query);
-            this.insertResults(resultSet);
+            this.getResults(resultSet);
         } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
         } finally {
-           
+           System.out.println("Record "+i+" read");
         }
+       
     }
     
-     private void insertResults(ResultSet resultSet) throws SQLException {
+     private void getResults(ResultSet resultSet) throws SQLException {
         while (resultSet.next()) {
             id = resultSet.getInt("id");
             grade_level = resultSet.getString("grade_level");
@@ -47,21 +49,42 @@ public class MySQL_Query_Controller {
             hierarchy = resultSet.getString("hierarchy");
             description = resultSet.getString("description");
             grade_level_id = resultSet.getString("grade_level_id");
-            System.out.printf("%nid %d grade_level: %s code: %s hierarchy: %s description: %s grade_level_id: %s", id, grade_level, code, hierarchy, description, grade_level_id);
+        }
+        this.splitDescription(hierarchy,description);
+    }
+     
+    private void splitDescription(String hierarchy, String description) throws SQLException{
+                
+        String school = "";
+        String subject = "";
+        String strand = "";
+        String [] hierarchyArray = description.split("::");
+        String learningExpectation = description;
+        
+        for(int i = 0; i < hierarchyArray.length; i++){
             
-            String query2 = "INSERT INTO Proficiencies_Final(grade_level,code,hierarchy,description,grade_level_id)"
+        }
+        
+        
+        this.insertResults(grade_level,code,hierarchy,description,grade_level_id);
+
+    }
+     
+    public void insertResults(String a, String b, String c, String d, String e) throws SQLException{
+    String query2 = "INSERT INTO Proficiencies_Final(grade_level,code,hierarchy,description,grade_level_id)"
                             +"values (?, ?, ?, ?, ?)";
             statement2 = connection.prepareStatement(query2);
-            statement2.setString(1,grade_level);
-            statement2.setString(2,code);
-            statement2.setString(3,hierarchy);
-            statement2.setString(4,description);
-            statement2.setString(5,grade_level_id);
+            statement2.setString(1,a);
+            statement2.setString(2,b);
+            statement2.setString(3,c);
+            statement2.setString(4,d);
+            statement2.setString(5,e);
             
             System.out.println("WILL INSERT:"+grade_level+","+code+","+hierarchy+","+description+","+grade_level_id+");");
             statement2.execute();
-       
-        }
+            close();
+    
+    
     }
      
     
