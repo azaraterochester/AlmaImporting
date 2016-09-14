@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
+
 
 public class MySQL_Query_Controller {
     
@@ -12,13 +14,14 @@ public class MySQL_Query_Controller {
     private Statement statement1 = null;
     private PreparedStatement statement2 = null;
     private ResultSet resultSet = null;
+    private String strand = "";
     public int id = 0;
     public String grade_level = "";
     public String code = "";
     public String hierarchy = "";
     public String description = "";
     public String grade_level_id = "";
-    
+    public boolean last_record = false;
     
     public MySQL_Query_Controller(Connection connection) {
         this.connection = connection;
@@ -36,7 +39,7 @@ public class MySQL_Query_Controller {
         } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
         } finally {
-           System.out.println("Record "+i+" read");
+           //System.out.println("Record "+i+" read");
         }
        
     }
@@ -55,19 +58,23 @@ public class MySQL_Query_Controller {
      
     private void splitDescription(String hierarchy, String description) throws SQLException{
                 
-        String school = "";
-        String subject = "";
-        String strand = "";
-        String [] hierarchyArray = description.split("::");
-        String learningExpectation = description;
         
-        for(int i = 0; i < hierarchyArray.length; i++){
-            
+        String [] harray = hierarchy.split(Pattern.quote("::"));
+        String thisstrand = harray[2];
+        if(!last_record){
+        for(int i = 0; i < harray.length; i++){
+            if(!strand.equals(thisstrand) && !last_record){
+                this.insertResults(grade_level,code,harray[0],harray[0],grade_level_id);//Rochester
+                String a = harray[0]+"::"+harray[1];
+                this.insertResults(grade_level,code,a,harray[1],grade_level_id);//Rochester::Subject
+                String b = harray[0]+"::"+harray[1]+"::"+harray[2];
+                this.insertResults(grade_level,code,b,harray[2],grade_level_id);//Rochester::Subject::Strand::
+                strand = thisstrand;
+            }
         }
+        }
+        this.insertResults(grade_level,code,hierarchy,description,grade_level_id);//Rochester::Subject::Strand::Standard
         
-        
-        this.insertResults(grade_level,code,hierarchy,description,grade_level_id);
-
     }
      
     public void insertResults(String a, String b, String c, String d, String e) throws SQLException{
@@ -80,7 +87,7 @@ public class MySQL_Query_Controller {
             statement2.setString(4,d);
             statement2.setString(5,e);
             
-            System.out.println("WILL INSERT:"+grade_level+","+code+","+hierarchy+","+description+","+grade_level_id+");");
+            //System.out.println("WILL INSERT:"+a+","+b+","+c+","+d+","+e+");");
             statement2.execute();
             close();
     

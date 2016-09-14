@@ -7,7 +7,7 @@ public class MySQL_Connection {
     
     private Connection connection = null;
     private   MySQL_Query_Controller queryController = new MySQL_Query_Controller(this.connection);
-    private int records = 2;
+    private int last_id = 3805;
     
     
     public MySQL_Connection(String connectionString) throws SQLException{
@@ -21,9 +21,14 @@ public class MySQL_Connection {
     }
     
     public void executeQuery(){
-        for(int i = 2; i<=records; i++){ 
-        try { 
+        for(int i = 2; i<=last_id; i++){ 
+        try {
+            if(i<=last_id){
             queryController.readData(i);
+            }
+            else{
+                queryController.last_record = true;
+            }
          } catch (Exception ex) {
              System.out.println("Error executing query:" + ex.getMessage());
          }
