@@ -45,6 +45,7 @@ public class MySQL_Query_Controller {
     }
     
      private void getResults(ResultSet resultSet) throws SQLException {
+         System.out.println(resultSet.getFetchSize());
         while (resultSet.next()) {
             id = resultSet.getInt("id");
             grade_level = resultSet.getString("grade_level");
