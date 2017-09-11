@@ -16,6 +16,7 @@ public class MySQL_Query_Controller {
     private ResultSet resultSet = null;
     private String strand = "";
     public int id = 0;
+    public int standardNumber = 0;
     public String grade_level = "";
     public String code = "";
     public String hierarchy = "";
@@ -70,11 +71,16 @@ public class MySQL_Query_Controller {
                 this.insertResults(grade_level,code,a,harray[1],grade_level_id);//Rochester::Subject
                 String b = harray[0]+"::"+harray[1]+"::"+harray[2];
                 this.insertResults(grade_level,code,b,harray[2],grade_level_id);//Rochester::Subject::Strand::
+                System.out.println(harray[2]+"::"+String.valueOf(i));
                 strand = thisstrand;
+                standardNumber=0;
             }
         }
+        standardNumber++;
         }
-        this.insertResults(grade_level,code,hierarchy,description,grade_level_id);//Rochester::Subject::Strand::Standard
+        
+        String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
+        this.insertResults(grade_level,code,standard,description,grade_level_id);//Rochester::Subject::Strand::Standard
         
     }
      
