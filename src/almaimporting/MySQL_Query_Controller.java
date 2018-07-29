@@ -71,7 +71,7 @@ public class MySQL_Query_Controller {
                 this.insertResults(grade_level,code,a,harray[1],grade_level_id);//Rochester::Subject
                 String b = harray[0]+"::"+harray[1]+"::"+harray[2];
                 this.insertResults(grade_level,code,b,harray[2],grade_level_id);//Rochester::Subject::Strand::
-                System.out.println(harray[2]+"::"+String.valueOf(i));
+                //System.out.println(harray[2]+"::"+String.valueOf(i));
                 strand = thisstrand;
                 standardNumber=0;
             }
@@ -79,7 +79,8 @@ public class MySQL_Query_Controller {
         standardNumber++;
         }
         
-        String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
+        //String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
+        String standard = harray[0]+"::"+harray[1]+"::"+harray[2];
         this.insertResults(grade_level,code,standard,description,grade_level_id);//Rochester::Subject::Strand::Standard
         
     }
