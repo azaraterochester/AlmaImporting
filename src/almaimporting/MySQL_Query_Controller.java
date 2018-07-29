@@ -38,7 +38,7 @@ public class MySQL_Query_Controller {
             resultSet = statement1.executeQuery(query);
             this.getResults(resultSet);
         } catch (Exception e) {
-            System.out.println("Error:" + e.getMessage());
+            //System.out.println("Error:" + e.getMessage());
         } finally {
            //System.out.println("Record "+i+" read");
         }
@@ -46,7 +46,7 @@ public class MySQL_Query_Controller {
     }
     
      private void getResults(ResultSet resultSet) throws SQLException {
-         System.out.println(resultSet.getFetchSize());
+         //System.out.println(resultSet.getFetchSize());
         while (resultSet.next()) {
             id = resultSet.getInt("id");
             grade_level = resultSet.getString("grade_level");
@@ -80,7 +80,7 @@ public class MySQL_Query_Controller {
         }
         
         //String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
-        String standard = harray[0]+"::"+harray[1]+"::"+harray[2];
+        String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
         this.insertResults(grade_level,code,standard,description,grade_level_id);//Rochester::Subject::Strand::Standard
         
     }
@@ -117,7 +117,7 @@ public class MySQL_Query_Controller {
             }
             
         } catch (Exception e) {
-            System.out.println();
+            //System.out.println();
         }
     }
     
