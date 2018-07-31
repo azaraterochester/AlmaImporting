@@ -64,6 +64,7 @@ public class MySQL_Query_Controller {
         String [] harray = hierarchy.split(Pattern.quote("::"));
         String thisstrand = harray[2];
         if(!last_record){
+        
         for(int i = 0; i < harray.length; i++){
             if(!strand.equals(thisstrand) && !last_record){
                 this.insertResults(grade_level,code,harray[0],harray[0],grade_level_id);//Rochester
@@ -72,6 +73,11 @@ public class MySQL_Query_Controller {
                 String b = harray[0]+"::"+harray[1]+"::"+harray[2];
                 this.insertResults(grade_level,code,b,harray[2],grade_level_id);//Rochester::Subject::Strand::
                 //System.out.println(harray[2]+"::"+String.valueOf(i));
+                
+                //For another hierarchy level.
+                
+                //String c = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+harray[3];
+                //this.insertResults(grade_level,code,b,harray[3],grade_level_id);
                 strand = thisstrand;
                 standardNumber=0;
             }
@@ -80,7 +86,7 @@ public class MySQL_Query_Controller {
         }
         
         //String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
-        String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
+        String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+harray[3]+standardNumber;
         this.insertResults(grade_level,code,standard,description,grade_level_id);//Rochester::Subject::Strand::Standard
         
     }
