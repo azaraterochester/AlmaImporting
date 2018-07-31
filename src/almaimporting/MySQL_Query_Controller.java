@@ -33,7 +33,7 @@ public class MySQL_Query_Controller {
         try {
             statement1 = connection.createStatement();
             String query = "select * "
-                            + "from Proficiencies "
+                            + "from Proficiencies_Virtudes "
                             + "where id = "+i+";";
             resultSet = statement1.executeQuery(query);
             this.getResults(resultSet);
@@ -62,7 +62,8 @@ public class MySQL_Query_Controller {
                 
         
         String [] harray = hierarchy.split(Pattern.quote("::"));
-        String thisstrand = harray[2];
+        //String thisstrand = harray[2];
+        String thisstrand = harray[3];
         if(!last_record){
         
         for(int i = 0; i < harray.length; i++){
@@ -75,8 +76,8 @@ public class MySQL_Query_Controller {
                 //System.out.println(harray[2]+"::"+String.valueOf(i));
                 
                 //For another hierarchy level.
-                //String c = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+harray[3];//Rochester::Subject::Stand::Substrand::
-                //this.insertResults(grade_level,code,b,harray[3],grade_level_id);
+                String c = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+harray[3];//Rochester::Subject::Stand::Substrand::
+                this.insertResults(grade_level,code,c,harray[3],grade_level_id);
                 strand = thisstrand;
                 standardNumber=0;
             }
@@ -84,14 +85,14 @@ public class MySQL_Query_Controller {
         standardNumber++;
         }
         
-        String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
-        //String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+harray[3]+"::"+standardNumber;
-        this.insertResults(grade_level,code,standard,harray[3],grade_level_id);//Rochester::Subject::Strand::Standard
+        //String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
+        String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+harray[3]+"::"+standardNumber;
+        this.insertResults(grade_level,code,standard,harray[4],grade_level_id);//Rochester::Subject::Strand::Standard
         
     }
      
     public void insertResults(String a, String b, String c, String d, String e) throws SQLException{
-    String query2 = "INSERT INTO Proficiencies_Final(grade_level,code,hierarchy,description,grade_level_id)"
+    String query2 = "INSERT INTO Proficiencies_final_Virtudes(grade_level,code,hierarchy,description,grade_level_id)"
                             +"values (?, ?, ?, ?, ?)";
             statement2 = connection.prepareStatement(query2);
             statement2.setString(1,a);
