@@ -86,8 +86,8 @@ public class MySQL_Query_Controller {
         }
         
         //String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+standardNumber;
-        String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+harray[3]+standardNumber;
-        this.insertResults(grade_level,code,standard,description,grade_level_id);//Rochester::Subject::Strand::Standard
+        String standard = harray[0]+"::"+harray[1]+"::"+harray[2]+"::"+harray[3]+"::"+standardNumber;
+        this.insertResults(grade_level,code,standard,harray[3],grade_level_id);//Rochester::Subject::Strand::Standard
         
     }
      
@@ -104,12 +104,8 @@ public class MySQL_Query_Controller {
             //System.out.println("WILL INSERT:"+a+","+b+","+c+","+d+","+e+");");
             statement2.execute();
             close();
-    
-    
     }
-     
-    
-    
+
     private void close() {
         try {
             if (resultSet != null) {
