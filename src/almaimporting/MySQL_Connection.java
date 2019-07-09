@@ -7,7 +7,7 @@ public class MySQL_Connection {
     
     private Connection connection = null;
     private   MySQL_Query_Controller queryController = new MySQL_Query_Controller(this.connection);
-    private int last_id = 2911;
+    private int last_id = 100;
     
     
     public MySQL_Connection(String connectionString) throws SQLException{

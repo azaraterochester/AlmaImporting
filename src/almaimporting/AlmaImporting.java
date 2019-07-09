@@ -11,10 +11,10 @@ public class AlmaImporting {
 
     public static void main(String[] args) {
 
-        String connectionString = "jdbc:mysql://10.0.3.8/"
+        String connectionString = "jdbc:mysql://35.192.167.130/"
                 + "alma_integrations?"
                 + "user=root&"
-                + "password=irc4Quag&"
+                + "password=F2G4GPF8GyyBLGN7&"
                 + "useSSL=false";
         try {
             MySQL_Connection myConnection = new MySQL_Connection(connectionString);
